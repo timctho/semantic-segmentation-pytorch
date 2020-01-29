@@ -12,6 +12,7 @@ DATASET:
 MODEL:
   arch_encoder: "hrnetv2"
   arch_decoder: "c1"
+  input_c: 3
   fc_dim: 720
 
 TRAIN:

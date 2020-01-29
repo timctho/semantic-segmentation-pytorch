@@ -143,6 +143,7 @@ def main(cfg, gpus):
     # Network Builders
     net_encoder = ModelBuilder.build_encoder(
         arch=cfg.MODEL.arch_encoder.lower(),
+        input_c=cfg.MODEL.input_c,
         fc_dim=cfg.MODEL.fc_dim,
         weights=cfg.MODEL.weights_encoder)
     net_decoder = ModelBuilder.build_decoder(
@@ -214,14 +215,14 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--cfg",
-        default="config/ade20k-resnet50dilated-ppm_deepsup.yaml",
+        default="config/ade20k-resnet18dilated-ppm_deepsup.yaml",
         metavar="FILE",
         help="path to config file",
         type=str,
     )
     parser.add_argument(
         "--gpus",
-        default="0-3",
+        default="0",
         help="gpus to use, e.g. 0-3 or 0,1,2,3"
     )
     parser.add_argument(

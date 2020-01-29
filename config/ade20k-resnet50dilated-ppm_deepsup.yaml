@@ -12,6 +12,7 @@ DATASET:
 MODEL:
   arch_encoder: "resnet50dilated"
   arch_decoder: "ppm_deepsup"
+  input_c: 3
   fc_dim: 2048
 
 TRAIN:

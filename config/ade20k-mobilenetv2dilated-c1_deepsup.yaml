@@ -12,6 +12,7 @@ DATASET:
 MODEL:
   arch_encoder: "mobilenetv2dilated"
   arch_decoder: "c1_deepsup"
+  input_c: 3
   fc_dim: 320
 
 TRAIN:

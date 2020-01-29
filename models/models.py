@@ -62,43 +62,43 @@ class ModelBuilder:
         #    m.weight.data.normal_(0.0, 0.0001)
 
     @staticmethod
-    def build_encoder(arch='resnet50dilated', fc_dim=512, weights=''):
+    def build_encoder(arch='resnet50dilated', input_c=3, fc_dim=512, weights=''):
         pretrained = True if len(weights) == 0 else False
         arch = arch.lower()
         if arch == 'mobilenetv2dilated':
-            orig_mobilenet = mobilenet.__dict__['mobilenetv2'](pretrained=pretrained)
+            orig_mobilenet = mobilenet.__dict__['mobilenetv2'](pretrained=pretrained, input_c=input_c)
             net_encoder = MobileNetV2Dilated(orig_mobilenet, dilate_scale=8)
         elif arch == 'resnet18':
-            orig_resnet = resnet.__dict__['resnet18'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet18'](pretrained=pretrained, input_c=input_c)
             net_encoder = Resnet(orig_resnet)
         elif arch == 'resnet18dilated':
-            orig_resnet = resnet.__dict__['resnet18'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet18'](pretrained=pretrained, input_c=input_c)
             net_encoder = ResnetDilated(orig_resnet, dilate_scale=8)
         elif arch == 'resnet34':
             raise NotImplementedError
-            orig_resnet = resnet.__dict__['resnet34'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet34'](pretrained=pretrained, input_c=input_c)
             net_encoder = Resnet(orig_resnet)
         elif arch == 'resnet34dilated':
             raise NotImplementedError
-            orig_resnet = resnet.__dict__['resnet34'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet34'](pretrained=pretrained, input_c=input_c)
             net_encoder = ResnetDilated(orig_resnet, dilate_scale=8)
         elif arch == 'resnet50':
-            orig_resnet = resnet.__dict__['resnet50'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet50'](pretrained=pretrained, input_c=input_c)
             net_encoder = Resnet(orig_resnet)
         elif arch == 'resnet50dilated':
-            orig_resnet = resnet.__dict__['resnet50'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet50'](pretrained=pretrained, input_c=input_c)
             net_encoder = ResnetDilated(orig_resnet, dilate_scale=8)
         elif arch == 'resnet101':
-            orig_resnet = resnet.__dict__['resnet101'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet101'](pretrained=pretrained, input_c=input_c)
             net_encoder = Resnet(orig_resnet)
         elif arch == 'resnet101dilated':
-            orig_resnet = resnet.__dict__['resnet101'](pretrained=pretrained)
+            orig_resnet = resnet.__dict__['resnet101'](pretrained=pretrained, input_c=input_c)
             net_encoder = ResnetDilated(orig_resnet, dilate_scale=8)
         elif arch == 'resnext101':
-            orig_resnext = resnext.__dict__['resnext101'](pretrained=pretrained)
+            orig_resnext = resnext.__dict__['resnext101'](pretrained=pretrained, input_c=input_c)
             net_encoder = Resnet(orig_resnext) # we can still use class Resnet
         elif arch == 'hrnetv2':
-            net_encoder = hrnet.__dict__['hrnetv2'](pretrained=pretrained)
+            net_encoder = hrnet.__dict__['hrnetv2'](pretrained=pretrained, input_c=input_c)
         else:
             raise Exception('Architecture undefined!')
 

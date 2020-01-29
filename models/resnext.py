@@ -61,10 +61,10 @@ class GroupBottleneck(nn.Module):
 
 class ResNeXt(nn.Module):
 
-    def __init__(self, block, layers, groups=32, num_classes=1000):
+    def __init__(self, block, layers, input_c=3, groups=32, num_classes=1000):
         self.inplanes = 128
         super(ResNeXt, self).__init__()
-        self.conv1 = conv3x3(3, 64, stride=2)
+        self.conv1 = conv3x3(input_c, 64, stride=2)
         self.bn1 = BatchNorm2d(64)
         self.relu1 = nn.ReLU(inplace=True)
         self.conv2 = conv3x3(64, 64)
