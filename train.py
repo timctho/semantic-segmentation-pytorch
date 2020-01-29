@@ -8,6 +8,7 @@ from distutils.version import LooseVersion
 # Numerical libs
 import torch
 import torch.nn as nn
+from torch.utils.tensorboard import SummaryWriter
 # Our libs
 from config import cfg
 from dataset import TrainDataset
@@ -161,6 +162,16 @@ def main(cfg, gpus):
         segmentation_module = SegmentationModule(
             net_encoder, net_decoder, crit)
 
+    tensorboard = SummaryWriter(log_dir=cfg.DIR)
+    tensorboard.add_graph(
+        segmentation_module,
+        {'img_data': torch.zeros(1, cfg.MODEL.input_c, cfg.DATASET.imgMaxSize, cfg.DATASET.imgMaxSize),
+         'seg_label': torch.zeros(
+             1,
+             cfg.DATASET.imgMaxSize // cfg.DATASET.segm_downsampling_rate,
+             cfg.DATASET.imgMaxSize // cfg.DATASET.segm_downsampling_rate,
+             dtype=torch.long)})
+
     # Dataset and Loader
     dataset_train = TrainDataset(
         cfg.DATASET.root_dataset,
@@ -203,6 +214,7 @@ def main(cfg, gpus):
         # checkpointing
         checkpoint(nets, history, cfg, epoch+1)
 
+    tensorboard.close()
     print('Training Done!')
 
 
@@ -215,7 +227,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--cfg",
-        default="config/ade20k-resnet18dilated-ppm_deepsup.yaml",
+        default="config/bizcard-resnet18dilated-ppm_deepsup.yaml",
         metavar="FILE",
         help="path to config file",
         type=str,

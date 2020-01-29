@@ -63,7 +63,7 @@ class ModelBuilder:
 
     @staticmethod
     def build_encoder(arch='resnet50dilated', input_c=3, fc_dim=512, weights=''):
-        pretrained = True if len(weights) == 0 else False
+        pretrained = True if len(weights) == 0 and input_c == 3 else False
         arch = arch.lower()
         if arch == 'mobilenetv2dilated':
             orig_mobilenet = mobilenet.__dict__['mobilenetv2'](pretrained=pretrained, input_c=input_c)
